@@ -6,6 +6,8 @@ import { endpoints } from "@/constants/endpoints";
 import { useState, useContext } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import { Estilos } from "@/constants/Styles";
+
 import * as Crypto from 'expo-crypto'
 import {Link, router} from "expo-router"
 //importar el componente de Context
@@ -19,6 +21,10 @@ export default function Index() {
 	const [loaded, error] = useFonts({
 		'poppins': require('../assets/fonts/PoppinsSemiBold.ttf'),
 	  });
+
+	const [fontsLoaded] = useFonts({
+		'MiguelDeNorthern': require("../assets/fonts/MiguelDeNorthern.ttf"),
+	});
 
 	//[nombre de la variable, nombre de la funcion que modifica la variable]
 	const [userValue, setUserValue] = useState('');
@@ -57,36 +63,44 @@ export default function Index() {
 	}
 
   return (
-    <View style={styles.container}>
-		<IconRocket width='150' height='150'></IconRocket>
-		<Text style={styles.title}>AppTitle</Text>
-		<Text >¡Te damos la bienvenida!</Text>
-		<View style={styles.inputfieldlabel}>
-			<Icon
-				name='user'
-				size={20}
-				color='#000'
-			/>
-			<TextInput style={styles.input} onChangeText={setUserValue} placeholder="Usuario"></TextInput>
+	<View style={Estilos.Principal}>
+		<View style={Estilos.Contenedor1}>
+			<Text style={Estilos.Titulos}>Ingen</Text>
+			<Text style={Estilos.Subtitulos}>¡Te da la bienvenida!</Text>
 		</View>
-		<View style={styles.inputfieldlabel}>
-			<Icon
-				name='lock'
-				size={20}
-				color='#000'
-			/>
-			<TextInput style={styles.input} secureTextEntry onChangeText={setPassValue} placeholder="Contraseña"></TextInput>
+
+		<View style={Estilos.Contenedor2}>
+			<View style={Estilos.ContenedorCajaDeTexto}>
+				<Icon
+					name='user'
+					style={Estilos.Icono}
+				/>
+				<TextInput style={Estilos.CajasDeTexto} onChangeText={setUserValue} placeholder="Usuario"></TextInput>
+			</View>
+			<View style={styles.inputfieldlabel}>
+				<Icon
+					name='lock'
+					size={20}
+					color='#000'
+				/>
+				<TextInput style={styles.input} secureTextEntry onChangeText={setPassValue} placeholder="Contraseña"></TextInput>
+			</View>
+			{failedLogin? (<Text style={styles.error}>Usuario o contraseña incorrectos.</Text>):undefined}
 		</View>
-		{failedLogin? (<Text style={styles.error}>Usuario o contraseña incorrectos.</Text>):undefined}
-		<Pressable style={styles.botonconlogo} onPress={onButtonLogin} >
-			<Text>Log in!</Text>
-		</Pressable>
-		<Text >¿No tienes una cuenta?</Text>
-		<Link href='/register' asChild>
-			<Pressable style={styles.botonconlogo}>
-				<Text>Regístrate.</Text>
+
+		<View style={Estilos.Contenedor3}>
+			<Pressable style={styles.botonconlogo} onPress={onButtonLogin} >
+				<Text>Log in!</Text>
 			</Pressable>
-		</Link>
+
+			<Text >¿No tienes una cuenta?</Text>
+
+			<Link href='/register' asChild>
+				<Pressable style={styles.botonconlogo}>
+					<Text>Regístrate.</Text>
+				</Pressable>
+			</Link>
+		</View>
 
 		{/*<Link href="/mainmenu" asChild>
 			<Button title="Main"></Button>
