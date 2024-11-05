@@ -144,6 +144,16 @@ export default function Index() {
                             color='#000'
                         />  
                     </Pressable>
+                    <Pressable style={styles.botonconlogo}>
+                        <FontAwesome
+                            name='save'
+                            size={20}
+                            color='#000'
+                        />
+                        <Text style={styles.textoboton} onPress={takePicture}>
+                            Guardar foto
+                        </Text>
+                    </Pressable>
                 </View>
             )://Take picture
                 <View>
@@ -160,12 +170,12 @@ export default function Index() {
                     </CameraView>
                     <Pressable style={styles.botonconlogo}>
                         <FontAwesome
-                            name='save'
+                            name='camera'
                             size={20}
                             color='#000'
                         />
                         <Text style={styles.textoboton} onPress={takePicture}>
-                            Guardar
+                            Tomar foto
                         </Text>
                     </Pressable>
                 </View>
