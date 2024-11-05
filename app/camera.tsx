@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {Link, router} from 'expo-router'
-import { StyleSheet, Text, View, Button, Image, Pressable, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, Pressable, TouchableOpacity } from 'react-native';
 import { Camera, CameraView, CameraCapturedPicture, CameraType, useCameraPermissions } from 'expo-camera';
 import {FontAwesome, MaterialCommunityIcons} from 'react-native-vector-icons';
 import { MyContext } from "./context";
 import { endpoints } from "@/constants/endpoints";
+import {Image} from 'expo-image'
 
 export default function Index() {
     
@@ -50,10 +51,12 @@ export default function Index() {
                 setPreview(true);
                 const form = new FormData();
                 setCapturedImage(photo);
-                form.append('token', 'code37');
-                form.append('id', loginData.id);
-                form.append('image', photo?.uri);
-                console.log(form);
+                if(photo){
+                    form.append('token', 'code37');
+                    form.append('id', loginData.id);
+                    form.append('image', photo?.uri);
+                    console.log(form);
+                }
 
                 fetch(endpoints.SET_PROFILE_PICTURE, {
                     method:'POST',
@@ -129,11 +132,11 @@ export default function Index() {
 
     return(
         <View style={styles.container}>
-            {preview? (//Preview
+            {preview && capturedImage? (//Preview
                 <View>
-                    {/* <Image style={styles.pfp_image} source={capturedImage?.uri}>
+                    <Image style={styles.pfp_image} source={capturedImage.uri}>
 
-                    </Image> */}
+                    </Image>
                     <Pressable style={styles.botonconlogo} onPress={togglePreview}>
                         <MaterialCommunityIcons
                             name='camera-retake-outline'
