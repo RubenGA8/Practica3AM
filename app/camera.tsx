@@ -39,96 +39,48 @@ export default function Index() {
     }
 
     const takePicture = async () => {
-        console.log('foto1');
         if (cameraRef) {
-            console.log('foto2');
             try {
                 const photo = await cameraRef.takePictureAsync({ base64: true });
                 setPreview(true);
                 setCapturedImage(photo);
-                console.log('foto3');
-                //console.log(photo);
-                setPreview(true);
-                const form = new FormData();
-                setCapturedImage(photo);
-                if(photo){
-                    form.append('token', 'code37');
-                    form.append('id', loginData.id);
-                    form.append('image', photo?.uri);
-                    console.log(form);
-                }
-
-                fetch(endpoints.SET_PROFILE_PICTURE, {
-                    method:'POST',
-                    body:form,
-                })
-                .then(response=>response.json())
-                .then(data => {
-                    if(!data.error && data.id){
-                        console.log('Cambio de imagen exitoso');
-                        console.log(data);
-                        router.replace('/mainmenu');
-                    }else{
-                        console.log('error al cambiar la foto de perfil');
-                        console.log(data.error);
-                    }
-                })
-                .catch(err=>{console.log(err)});
-
             } catch (error) {
                 console.error('Error taking picture:', error);
             }
         }
-        console.log('foto4');
     };
+
+    const savePicture = () => {
+        const form = new FormData();
+        if(capturedImage){
+            form.append('token', 'code37');
+            form.append('id', loginData.id);
+            form.append('image', capturedImage?.uri);
+            console.log(form);
+            
+            fetch(endpoints.SET_PROFILE_PICTURE, {
+                method:'POST',
+                body:form,
+            })
+            .then(response=>response.json())
+            .then(data => {
+                if(!data.error && data.id){
+                    console.log('Cambio de imagen exitoso');
+                    console.log(data);
+                    router.replace('/mainmenu');
+                }else{
+                    console.log('error al cambiar la foto de perfil');
+                    console.log(data.error);
+                }
+            })
+            .catch(err=>{console.log(err)});
+        }
+    }
 
     const retakePicture = () => {
         setCapturedImage(undefined);
         setPreview(false);
     };
-
-    // const uploadImage = async () => {
-    //     if (capturedImage) {
-    //         try {
-    //             const response = await fetch(capturedImage.uri);
-    //             const blob = await response.blob();
-
-    //             // Create a FormData object and append parameters
-    //             const formData = new FormData();
-    //             formData.append('token', 'code37');
-    //             formData.append('id', user.id); // Replace userId with the actual user ID
-
-    //             // Append the blob with a filename
-    //             formData.append('image', blob, 'profile_pic.jpg');
-
-    //             const uploadResponse = await fetch(API.registro, {
-    //                 method: 'POST',
-    //                 body: formData,
-    //                 headers: {
-    //                     'Content-Type': 'multipart/form-data',
-    //                 },
-    //             });
-
-    //             if (uploadResponse.ok) {
-    //                 const responseData = await uploadResponse.json();
-    //                 Alert.alert('Success', 'Profile picture updated successfully.');
-    //                 console.log('Response:', responseData);
-    //                 // Update user context or navigate
-    //                 setUser({ ...user, pfp_url: responseData.url });
-    //                 router.back();
-
-    //             } else {
-    //                 const errorData = await uploadResponse.json();
-    //                 Alert.alert('Error', errorData.error || 'Failed to update profile picture.');
-    //             }
-    //         } catch (error) {
-    //             console.error('Error uploading image:', error);
-    //             Alert.alert('Error', 'An error occurred while uploading the image.');
-    //         }
-    //     } else {
-    //         Alert.alert('No Image', 'Please capture an image before uploading.');
-    //     }
-    // };
 
     return(
         <View style={styles.container}>
@@ -150,7 +102,7 @@ export default function Index() {
                             size={20}
                             color='#000'
                         />
-                        <Text style={styles.textoboton} onPress={takePicture}>
+                        <Text style={styles.textoboton} onPress={savePicture}>
                             Guardar foto
                         </Text>
                     </Pressable>
