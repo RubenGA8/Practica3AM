@@ -1,9 +1,17 @@
 import {View, Text, Image, StyleSheet, TextInput, Button, Pressable} from 'react-native';
+import {FontAwesomeIcon, faEnvelopeOpenText} from "react-native-vector-icons";
+
 import { endpoints } from '@/constants/endpoints';
+import { Estilos } from "@/constants/Styles";
+
 import {router, Link} from 'expo-router';
 import { useState, useContext } from 'react'
 import * as Crypto from 'expo-crypto'
 import IconRobot from './robot';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Icono from 'react-native-vector-icons/MaterialCommunityIcons';
+import Iconos from 'react-native-vector-icons/MaterialIcons';
 
 export default function Index()
 {
@@ -50,38 +58,51 @@ export default function Index()
     }
 
     return(
-        <View style={styles.container}>
-            <Text style={styles.title}>
-                Registrarse
-            </Text>
-            <View style={styles.inputfieldlabel}>
-                <Text>ID</Text>
-                <TextInput style={styles.input} onChangeText={setIdValue}></TextInput>
+        <View style={Estilos.Principal}>
+            <View style={Estilos.Contenedor1}>
+                <Text style={Estilos.Titulos}>
+                    Registrarse
+                </Text>
             </View>
-            <View style={styles.inputfieldlabel}>
-                <Text>Usuario</Text>
-                <TextInput style={styles.input} onChangeText={setUserValue}></TextInput>
+
+            <View style={Estilos.Contenedor2}>
+                <View style={Estilos.ContenedorCajaDeTexto}>
+                    <Icon name="key" style={Estilos.Icono}/>
+                    <TextInput style={Estilos.CajasDeTexto} onChangeText={setIdValue} placeholder="  ID"></TextInput>
+                </View>
+
+                <View style={Estilos.ContenedorCajaDeTexto}>
+                    <Icon name="user-circle-o" style={Estilos.Icono}/>
+                    <TextInput style={Estilos.CajasDeTexto} onChangeText={setUserValue} placeholder="  Usuario"></TextInput>
+                </View>
+
+                <View style={Estilos.ContenedorCajaDeTexto}>
+                    <Iconos name="lock-person" style={Estilos.Icono}/>
+                    <TextInput style={Estilos.CajasDeTexto} secureTextEntry onChangeText={setPassValue} placeholder="  Contraseña"></TextInput>
+                </View>
+
+                <View style={Estilos.ContenedorCajaDeTexto}>
+                    <Iconos name="person" style={Estilos.Icono}/>
+                    <TextInput style={Estilos.CajasDeTexto} onChangeText={setNameValue} placeholder="  Nombre"></TextInput>
+                </View>
+
+                <View style={Estilos.ContenedorCajaDeTexto}>
+                    <Iconos name="person" style={Estilos.Icono}/>
+                    <TextInput style={Estilos.CajasDeTexto} onChangeText={setlastnameValue} placeholder="  Apellido"></TextInput>
+                </View>
+
+                <View style={Estilos.ContenedorCajaDeTexto}>
+                    <Icono name="email" style={Estilos.Icono}/>
+                    <TextInput style={Estilos.CajasDeTexto} onChangeText={setMailValue} placeholder="  Email"></TextInput>
+                </View>
             </View>
-            <View style={styles.inputfieldlabel}>
-                <Text>Contraseña</Text>
-                <TextInput style={styles.input} secureTextEntry onChangeText={setPassValue}></TextInput>
+
+            <View style={Estilos.Contenedor3v2}>
+                {failedRegister? (<Text style={Estilos.Error}>Error al registrar el usuario</Text>):undefined}
+                <Pressable style={Estilos.Botones} onPress={onButtonRegister}>
+                    <Text style={Estilos.TextoBotones}>Registrar</Text>
+                </Pressable>
             </View>
-            <View style={styles.inputfieldlabel}>
-                <Text>Nombre</Text>
-                <TextInput style={styles.input} onChangeText={setNameValue}></TextInput>
-            </View>
-            <View style={styles.inputfieldlabel}>
-                <Text>Apellido</Text>
-                <TextInput style={styles.input} onChangeText={setlastnameValue}></TextInput>
-            </View>
-            <View style={styles.inputfieldlabel}>
-                <Text>Email</Text>
-                <TextInput style={styles.input} onChangeText={setMailValue}></TextInput>
-            </View>
-            {failedRegister? (<Text style={styles.error}>Error al registrar el usuario</Text>):undefined}
-            <Pressable style={styles.botonconlogo} onPress={onButtonRegister}>
-                <Text>Register</Text>
-            </Pressable>
         </View>
     )
 }
