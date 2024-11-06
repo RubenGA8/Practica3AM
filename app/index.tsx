@@ -1,4 +1,14 @@
-import { Text, View, StyleSheet, TextInput, Pressable, Button} from "react-native";
+import {
+	Text,
+	View,
+	StyleSheet,
+	TextInput,
+	Pressable,
+	Button,
+	Image,
+	ImageBackground,
+	TouchableOpacity
+} from "react-native";
 import { useFonts } from "expo-font";
 import IconRocket from './iconrocket';
 import IconRobot from './robot';
@@ -24,6 +34,7 @@ export default function Index() {
 
 	const [fontsLoaded] = useFonts({
 		'MiguelDeNorthern': require("../assets/fonts/MiguelDeNorthern.ttf"),
+		'JoylineNotes': require("../assets/fonts/JoylineNotes.ttf"),
 	});
 
 	//[nombre de la variable, nombre de la funcion que modifica la variable]
@@ -64,6 +75,7 @@ export default function Index() {
 
   return (
 	<View style={Estilos.Principal}>
+		<ImageBackground source={require('../assets/images/BackGroundLogin.png')} resizeMode="cover" style={Estilos.ImagenFondo}>
 		<View style={Estilos.Contenedor1}>
 			<Text style={Estilos.Titulos}>Ingen</Text>
 			<Text style={Estilos.Subtitulos}>¡Te da la bienvenida!</Text>
@@ -75,29 +87,32 @@ export default function Index() {
 					name='user'
 					style={Estilos.Icono}
 				/>
-				<TextInput style={Estilos.CajasDeTexto} onChangeText={setUserValue} placeholder="Usuario"></TextInput>
+				<TouchableOpacity style={Estilos.Opacidades}>
+					<TextInput style={Estilos.CajasDeTexto} onChangeText={setUserValue} placeholder="  Usuario"></TextInput>
+				</TouchableOpacity>
 			</View>
-			<View style={styles.inputfieldlabel}>
+			<View style={Estilos.ContenedorCajaDeTexto}>
 				<Icon
 					name='lock'
-					size={20}
-					color='#000'
+					style={Estilos.Icono}
 				/>
-				<TextInput style={styles.input} secureTextEntry onChangeText={setPassValue} placeholder="Contraseña"></TextInput>
+				<TextInput style={Estilos.CajasDeTexto} secureTextEntry onChangeText={setPassValue} placeholder="   Contraseña"></TextInput>
 			</View>
 			{failedLogin? (<Text style={styles.error}>Usuario o contraseña incorrectos.</Text>):undefined}
 		</View>
 
 		<View style={Estilos.Contenedor3}>
-			<Pressable style={styles.botonconlogo} onPress={onButtonLogin} >
-				<Text>Log in!</Text>
+			<Pressable style={Estilos.Botones} onPress={onButtonLogin} >
+				<Text style={Estilos.TextoBotones}>¡Ingresar!</Text>
 			</Pressable>
 
-			<Text >¿No tienes una cuenta?</Text>
+			<View style={Estilos.ContenedorMargenizadoSupInf}>
+				<Text style={Estilos.TextoComun}>¿No tienes una cuenta?</Text>
+			</View>
 
 			<Link href='/register' asChild>
-				<Pressable style={styles.botonconlogo}>
-					<Text>Regístrate.</Text>
+				<Pressable style={Estilos.Botones}>
+					<Text style={Estilos.TextoBotones}>Regístrate</Text>
 				</Pressable>
 			</Link>
 		</View>
@@ -105,9 +120,8 @@ export default function Index() {
 		{/*<Link href="/mainmenu" asChild>
 			<Button title="Main"></Button>
 		</Link>*/}
-
+		</ImageBackground>
     </View>
-	
   );
 }
 

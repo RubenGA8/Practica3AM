@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Image,StyleSheet } from "react-native";
 import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
@@ -7,9 +7,13 @@ export const Estilos = StyleSheet.create(
     {
         Principal:{
             flex: 1,
-            backgroundColor: "#faf3e7",
+            //backgroundColor: "#faf3e7",
             width: width,
             height: height,
+        },
+
+        ImagenFondo:{
+            flex: 1,
         },
 
         Contenedores:{
@@ -43,6 +47,18 @@ export const Estilos = StyleSheet.create(
             alignItems: 'center',
             justifyContent: 'flex-end',
             width:'60%',
+            marginTop: 15,
+            marginBottom: 15,
+            fontFamily: "JoylineNotes",
+        },
+
+        ContenedorMargenizadoSupInf:{
+            marginTop: 15,
+            marginBottom: 10,
+            textAlign: "center",
+            flexDirection:'row',
+            alignItems: 'center',
+            justifyContent: 'center',
         },
 
         Titulos:{
@@ -57,18 +73,58 @@ export const Estilos = StyleSheet.create(
             fontSize: 25,
         },
 
+        TextoComun:{
+            //fontFamily: "JoylineNotes",
+            fontSize: 15,
+        },
+
+        TextoBotones:{
+            color: "#ffffff",
+            fontSize: 15,
+            fontWeight: "bold",
+            letterSpacing: 1,
+        },
+
         CajasDeTexto:{
-            borderRadius: 10,
-            borderColor: "#000000",
+            borderRadius: 12,
+            borderColor: "#40175a",
             borderWidth: 2,
             height: height/22,
             width: width/2,
         },
 
         Icono:{
-            color: "#000000",
+            color: "#61135a",
             fontSize: 35,
             margin: 10,
-        }
+        },
+
+        Placeholders:{
+            marginLeft: 5,
+            fontStyle: "italic",
+        },
+
+        Botones:{
+            backgroundColor:'#d94acd',
+            flexDirection:'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 15,
+            borderColor: "#000000",
+            borderWidth: 2,
+            padding: 15,
+            width: width/3.5,
+        },
+
+        Imagen:{
+            resizeMethod: "scale",
+            height: height/5,
+            width: width/1.5,
+
+        },
+
+        Opacidades:{
+            
+        },
     }
 )
