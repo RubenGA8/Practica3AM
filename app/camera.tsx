@@ -1,25 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {Link, router} from 'expo-router'
-import {StyleSheet, Text, View, Button, Pressable, TouchableOpacity, ImageBackground} from 'react-native';
+import {StyleSheet, Text, View, Button, Pressable, TouchableOpacity, ImageBackground, Platform} from 'react-native';
 import { Camera, CameraView, CameraCapturedPicture, CameraType, useCameraPermissions } from 'expo-camera';
-import {FontAwesome, MaterialCommunityIcons} from 'react-native-vector-icons';
+import { FontAwesome, MaterialCommunityIcons, } from 'react-native-vector-icons';
 import { MyContext } from "./context";
 import { endpoints } from "@/constants/endpoints";
 import {Image} from 'expo-image'
 import {Estilos} from "@/constants/Styles";
+import * as MediaLibrary from 'expo-media-library';
 
 export default function Index() {
-    
+
     const [cameraRef, setCameraRef] = useState<CameraView | null>(null);
     const [preview, setPreview] = useState(false);
     const [capturedImage, setCapturedImage] = useState<CameraCapturedPicture | undefined>(undefined);
     const [facing, setFacing] = useState<CameraType>('front');
     const [permission, requestPermission] = useCameraPermissions();
 
-    const {loginData}= useContext(MyContext);
-    
-    if(!permission){
-        return <View/>
+    const { loginData } = useContext(MyContext);
+
+    if (!permission) {
+        return <View />
     }
 
     if(!permission.granted){
@@ -31,11 +32,11 @@ export default function Index() {
         )
     }
 
-    function toggleCameraFacing(){
+    function toggleCameraFacing() {
         setFacing(current => (current === 'back' ? 'front' : 'back'));
     }
-    
-    function togglePreview(){
+
+    function togglePreview() {
         setPreview(current => (current === true ? false : true));
     }
 
@@ -44,6 +45,7 @@ export default function Index() {
             try {
                 const photo = await cameraRef.takePictureAsync({ base64: true });
                 setPreview(true);
+                console.log(photo?.uri);
                 setCapturedImage(photo);
             } catch (error) {
                 console.error('Error taking picture:', error);
@@ -51,30 +53,38 @@ export default function Index() {
         }
     };
 
-    const savePicture = () => {
+    const savePicture = async() => {
         const form = new FormData();
-        if(capturedImage){
+        if (capturedImage) {
+            await MediaLibrary.saveToLibraryAsync(capturedImage.uri);
             form.append('token', 'code37');
             form.append('id', loginData.id);
-            form.append('image', capturedImage?.uri);
+
+            form.append('image', {
+                uri: capturedImage.uri,
+                name: 'image',
+                type: 'image/jpg'
+            });
+
+            // form.append('image', capturedImage?.uri);
             console.log(form);
-            
+
             fetch(endpoints.SET_PROFILE_PICTURE, {
-                method:'POST',
-                body:form,
+                method: 'POST',
+                body: form,
             })
-            .then(response=>response.json())
-            .then(data => {
-                if(!data.error && data.id){
-                    console.log('Cambio de imagen exitoso');
-                    console.log(data);
-                    router.replace('/mainmenu');
-                }else{
-                    console.log('error al cambiar la foto de perfil');
-                    console.log(data.error);
-                }
-            })
-            .catch(err=>{console.log(err)});
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.error && data.id) {
+                        console.log('Cambio de imagen exitoso');
+                        console.log(data);
+                        router.replace('/mainmenu');
+                    } else {
+                        console.log('error al cambiar la foto de perfil');
+                        console.log(data.error);
+                    }
+                })
+                .catch(err => { console.log(err) });
         }
     }
 
@@ -102,6 +112,7 @@ export default function Index() {
 
                     <View style={Estilos.ContenedorMargenizadoSupInf}>
                     <Pressable style={Estilos.Botones}>
+
                         <FontAwesome
                             name='save'
                             style={Estilos.IconoTexto}
@@ -121,6 +132,7 @@ export default function Index() {
                                 color='#fff'
                             />
                         </TouchableOpacity>
+
                         </View>
                     </CameraView>
                     <Pressable style={Estilos.Link}>
@@ -136,4 +148,3 @@ export default function Index() {
             </ImageBackground>
         </View>
     )
-}
