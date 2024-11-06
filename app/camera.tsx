@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {Link, router} from 'expo-router'
-import { StyleSheet, Text, View, Button, Pressable, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, Button, Pressable, TouchableOpacity, ImageBackground} from 'react-native';
 import { Camera, CameraView, CameraCapturedPicture, CameraType, useCameraPermissions } from 'expo-camera';
 import {FontAwesome, MaterialCommunityIcons} from 'react-native-vector-icons';
 import { MyContext } from "./context";
 import { endpoints } from "@/constants/endpoints";
 import {Image} from 'expo-image'
+import {Estilos} from "@/constants/Styles";
 
 export default function Index() {
     
@@ -23,9 +24,9 @@ export default function Index() {
 
     if(!permission.granted){
         return(
-            <View style={styles.container}>
-                <Text>Se requiere permiso para mostrar la cámara</Text>
-                <Pressable onPress={requestPermission}><Text>Dar permiso</Text></Pressable>
+            <View style={Estilos.Principal}>
+                <Text style={Estilos.TextoComun}>Se requiere permiso para mostrar la cámara</Text>
+                <Pressable style={Estilos.Botones} onPress={requestPermission}><Text>Dar permiso</Text></Pressable>
             </View>
         )
     }
@@ -83,35 +84,37 @@ export default function Index() {
     };
 
     return(
-        <View style={styles.container}>
+        <View style={Estilos.Principal}>
+            <ImageBackground source={require('../assets/images/BackGroundCamera.png')} resizeMode="cover" style={Estilos.ImagenFondo}>
             {preview && capturedImage? (//Preview
-                <View>
-                    <Image style={styles.pfp_image} source={capturedImage.uri}>
+                <View style={Estilos.Contenedor1}>
+                    <Image style={Estilos.ImagenPerfil} source={capturedImage.uri}></Image>
 
-                    </Image>
-                    <Pressable style={styles.botonconlogo} onPress={togglePreview}>
-                        <MaterialCommunityIcons
-                            name='camera-retake-outline'
-                            size={20}
-                            color='#000'
-                        />  
-                    </Pressable>
-                    <Pressable style={styles.botonconlogo}>
+                    <View style={Estilos.ContenedorMargenizadoSupInf}>
+                        <Pressable style={Estilos.Botones} onPress={togglePreview}>
+                            <MaterialCommunityIcons
+                                name='camera-retake-outline'
+                                style={Estilos.IconoTexto}
+                            />
+                            <Text style={Estilos.TextoBotones} onPress={savePicture}>Retomar</Text>
+                        </Pressable>
+                    </View>
+
+                    <View style={Estilos.ContenedorMargenizadoSupInf}>
+                    <Pressable style={Estilos.Botones}>
                         <FontAwesome
                             name='save'
-                            size={20}
-                            color='#000'
+                            style={Estilos.IconoTexto}
                         />
-                        <Text style={styles.textoboton} onPress={savePicture}>
-                            Guardar foto
-                        </Text>
+                        <Text style={Estilos.TextoBotones} onPress={savePicture}>Guardar</Text>
                     </Pressable>
+                    </View>
                 </View>
             )://Take picture
-                <View>
-                    <CameraView style={styles.camera} facing={facing} ref={setCameraRef} ratio='1:1'>
-                        <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+                <View style={Estilos.Contenedor1}>
+                    <CameraView style={Estilos.Camara} facing={facing} ref={setCameraRef} ratio='1:1'>
+                        <View style={Estilos.BotonRotarCamara}>
+                        <TouchableOpacity style={Estilos.BotonTransparente} onPress={toggleCameraFacing}>
                             <FontAwesome
                                 name='refresh'
                                 size={20}
@@ -120,69 +123,17 @@ export default function Index() {
                         </TouchableOpacity>
                         </View>
                     </CameraView>
-                    <Pressable style={styles.botonconlogo}>
+                    <Pressable style={Estilos.Link}>
                         <FontAwesome
                             name='camera'
-                            size={20}
-                            color='#000'
+                            style={Estilos.IconoTexto}
                         />
-                        <Text style={styles.textoboton} onPress={takePicture}>
-                            Tomar foto
-                        </Text>
+
+                        <Text style={Estilos.TextoBotones} onPress={takePicture}>Tomar foto</Text>
                     </Pressable>
                 </View>
             }
+            </ImageBackground>
         </View>
     )
 }
-
-const styles=StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-    },
-    camera:{
-        height:200,
-        width:200,
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
-        margin: 15,
-    },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-    },
-    text: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    botonconlogo:
-    {
-        backgroundColor:'#F9D689',
-			flexDirection:'row',
-			alignItems: 'center',
-			justifyContent: 'center',
-			padding:5,
-            right:5,
-			borderRadius:5,
-			borderColor:'#000',
-			borderWidth:2,
-			width:100,
-			height:40
-    },
-    textoboton:
-    {
-        paddingLeft:5
-    },
-    pfp_image:{
-        height:260,
-        width:260,
-        borderRadius:5,
-    },
-})
