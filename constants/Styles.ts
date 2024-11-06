@@ -37,7 +37,7 @@ export const Estilos = StyleSheet.create(
 
         Contenedor3:{
             flex: 1,
-            justifyContent: "center",
+            /*justifyContent: "center",*/
             alignItems: "center",
             fontWeight: "black",
         },
@@ -124,7 +124,10 @@ export const Estilos = StyleSheet.create(
         },
 
         Opacidades:{
-            
+            shadowColor: "#000000",
+            shadowOpacity: 0.95,
+            shadowOffset: {width: 1, height: 10},
+            shadowRadius: 10,
         },
     }
 )
