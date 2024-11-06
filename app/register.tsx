@@ -1,4 +1,4 @@
-import {View, Text, Image, StyleSheet, TextInput, Button, Pressable} from 'react-native';
+import {View, Text, Image, StyleSheet, TextInput, Button, Pressable, ImageBackground} from 'react-native';
 import {FontAwesomeIcon, faEnvelopeOpenText} from "react-native-vector-icons";
 
 import { endpoints } from '@/constants/endpoints';
@@ -59,6 +59,7 @@ export default function Index()
 
     return(
         <View style={Estilos.Principal}>
+            <ImageBackground source={require('../assets/images/BackGroundRegistro.png')} resizeMode="cover" style={Estilos.ImagenFondo}>
             <View style={Estilos.Contenedor1}>
                 <Text style={Estilos.Titulos}>
                     Registrarse
@@ -103,49 +104,7 @@ export default function Index()
                     <Text style={Estilos.TextoBotones}>Registrar</Text>
                 </Pressable>
             </View>
+            </ImageBackground>
         </View>
     )
 }
-
-const styles=StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    inputfieldlabel:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'flex-end',
-        width:'60%',
-    },
-    input:{
-        height: 40,
-        width: 150,
-        margin: 12,
-        borderWidth: 1,
-        padding: 10,
-    },
-    botonconlogo:
-    {
-        backgroundColor:'#F9D689',
-			flexDirection:'row',
-			alignItems: 'center',
-			justifyContent: 'center',
-			padding:5,
-			borderRadius:5,
-			borderColor:'#000',
-			borderWidth:2,
-			width:100,
-			height:40
-    },
-    title:
-    {
-        fontSize: 44,
-        bottom: 15,
-    },
-    error:{
-        color:"#F00",
-        padding:5,
-    },
-})

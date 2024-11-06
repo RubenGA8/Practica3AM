@@ -82,7 +82,7 @@ export const Estilos = StyleSheet.create(
 
         TextoComun:{
             //fontFamily: "JoylineNotes",
-            fontSize: 15,
+            fontSize: 18,
         },
 
         TextoBotones:{
@@ -119,7 +119,7 @@ export const Estilos = StyleSheet.create(
             borderRadius: 15,
             borderColor: "#000000",
             borderWidth: 2,
-            padding: 15,
+            padding: "2%",
             width: width/3.5,
         },
 
@@ -128,6 +128,12 @@ export const Estilos = StyleSheet.create(
             height: height/5,
             width: width/1.5,
 
+        },
+
+        ImagenPerfil:{
+            height:width/1.75,
+            width:width/1.75,
+            borderRadius:5,
         },
 
         Opacidades:{
@@ -146,6 +152,38 @@ export const Estilos = StyleSheet.create(
             color: "#61135a",
             fontSize: 20,
             margin: 5,
-        }
+        },
+
+        Link:{
+            backgroundColor:'#d94acd',
+            flexDirection:'row',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 15,
+            borderColor: "#000000",
+            borderWidth: 2,
+            padding: "2%",
+            paddingHorizontal: "4.5%",
+            margin: "2%",
+            width: width/3.65,
+        },
+
+        Camara:{
+            height:height/4,
+            width:width/1.85,
+        },
+
+        BotonRotarCamara:{
+            flex: 1,
+            flexDirection: 'row',
+            backgroundColor: 'transparent',
+            margin: "5%",
+        },
+
+        BotonTransparente:{
+            flex: 1,
+            alignSelf: 'flex-end',
+            alignItems: 'center',
+        },
     }
 )
