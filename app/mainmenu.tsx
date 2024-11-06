@@ -13,6 +13,10 @@ export default function Index()
         router.navigate('/camera')
     }
 
+    function onButtonLogout(){
+        router.replace('/');
+    }
+
     return(
         <View style={styles.container}>
 
@@ -31,11 +35,11 @@ export default function Index()
                     <Text>Made with 💗 by Ingen.</Text>
                 </Link>
             </View>
-            <View style={styles.logout}>
+            <Pressable style={styles.logout} onPress={onButtonLogout}>
                 <Link href='/'>
                     <Text>Logout</Text>
                 </Link>
-            </View>
+            </Pressable>
         </View>
     )
 }
