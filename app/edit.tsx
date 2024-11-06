@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {Link, router} from 'expo-router'
-import { StyleSheet, Text, View, Button, Image, Pressable, TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, Button, Image, Pressable, TouchableOpacity, ImageBackground} from 'react-native';
 import { Camera, CameraView, CameraCapturedPicture, CameraType, useCameraPermissions } from 'expo-camera';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { MyContext } from "./context";
 import { endpoints } from "@/constants/endpoints";
+import {Estilos} from "@/constants/Styles";
 
 export default function Index() {
     
@@ -22,9 +23,9 @@ export default function Index() {
 
     if(!permission.granted){
         return(
-            <View style={styles.container}>
-                <Text>Se requiere permiso para mostrar la cámara</Text>
-                <Pressable onPress={requestPermission}><Text>Dar permiso</Text></Pressable>
+            <View style={Estilos.Principal}>
+                <Text style={Estilos.TextoComun}>Se requiere permiso para mostrar la cámara</Text>
+                <Pressable style={Estilos.Botones} onPress={requestPermission}><Text>Dar permiso</Text></Pressable>
             </View>
         )
     }
@@ -122,68 +123,24 @@ export default function Index() {
     // };
 
     return(
-        <View style={styles.container}>
-            <CameraView style={styles.camera} facing={facing} ref={setCameraRef}>
-                <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-                    <Text style={styles.text}>Flip Camera</Text>
+        <View style={Estilos.Principal}>
+            <ImageBackground source={require('../assets/images/BackGroundMenuPrincipal.png')} resizeMode="cover" style={Estilos.ImagenFondo}>
+            <CameraView style={Estilos.Camara} facing={facing} ref={setCameraRef}>
+                <View style={Estilos.BotonRotarCamara}>
+                <TouchableOpacity style={Estilos.BotonTransparente} onPress={toggleCameraFacing}>
+                    <Text style={Estilos.TextoComun}>Flip Camera</Text>
                 </TouchableOpacity>
                 </View>
             </CameraView>
-            <Pressable style={styles.botonconlogo}>
+            <Pressable style={Estilos.Botones}>
                 <Icon
                     name='save'
                     size={20}
                     color='#000'
                 />
-                <Text style={styles.textoboton} onPress={takePicture}>
-                    Guardar
-                </Text>
+                <Text style={Estilos.TextoBotones} onPress={takePicture}>Guardar</Text>
             </Pressable>
+            </ImageBackground>
         </View>
     )
 }
-
-const styles=StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-    },
-    camera:{
-        flex: 1,
-    },
-    buttonContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: 'transparent',
-        margin: 64,
-    },
-    button: {
-        flex: 1,
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-    },
-    text: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    botonconlogo:
-    {
-        backgroundColor:'#F9D689',
-			flexDirection:'row',
-			alignItems: 'center',
-			justifyContent: 'center',
-			padding:5,
-            right:5,
-			borderRadius:5,
-			borderColor:'#000',
-			borderWidth:2,
-			width:100,
-			height:40
-    },
-    textoboton:
-    {
-        paddingLeft:5
-    },
-})
