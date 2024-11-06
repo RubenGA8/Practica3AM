@@ -1,7 +1,6 @@
 import {
 	Text,
 	View,
-	StyleSheet,
 	TextInput,
 	Pressable,
 	Button,
@@ -9,6 +8,7 @@ import {
 	ImageBackground,
 	TouchableOpacity
 } from "react-native";
+
 import { useFonts } from "expo-font";
 import IconRocket from './iconrocket';
 import IconRobot from './robot';
@@ -98,7 +98,7 @@ export default function Index() {
 				/>
 				<TextInput style={Estilos.CajasDeTexto} secureTextEntry onChangeText={setPassValue} placeholder="   Contraseña"></TextInput>
 			</View>
-			{failedLogin? (<Text style={styles.error}>Usuario o contraseña incorrectos.</Text>):undefined}
+			{failedLogin? (<Text style={Estilos.Error}>Usuario o contraseña incorrectos.</Text>):undefined}
 		</View>
 
 		<View style={Estilos.Contenedor3}>
@@ -124,49 +124,3 @@ export default function Index() {
     </View>
   );
 }
-
-const styles=StyleSheet.create(
-	{
-		container:{
-			flex: 1,
-			justifyContent: "center",
-			alignItems: "center",
-		},
-		title:{
-			fontSize:44
-		},
-		inputfieldlabel:
-		{
-			flexDirection:'row',
-			alignItems: 'center',
-			justifyContent: 'flex-end',
-			width:'60%'
-		},
-		input: {
-			height: 40,
-			width:150,
-			margin: 12,
-			borderWidth: 1,
-			padding: 10,
-		  },
-		botonconlogo:
-		{
-			backgroundColor:'#F9D689',
-			flexDirection:'row',
-			alignItems: 'center',
-			justifyContent: 'center',
-			padding:5,
-			borderRadius:5,
-			borderColor:'#000',
-			borderWidth:2,
-			width:100,
-			height:40
-		},
-		error:{
-			color:"#F00",
-			padding:5,
-		},
-		//#973131 #E0A75E #F9D689 #F5E7B2
-		
-	}
-)

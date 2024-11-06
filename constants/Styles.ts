@@ -42,6 +42,13 @@ export const Estilos = StyleSheet.create(
             fontWeight: "black",
         },
 
+        Contenedor3v2:{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            fontWeight: "black",
+        },
+
         ContenedorCajaDeTexto:{
             flexDirection:'row',
             alignItems: 'center',
@@ -129,5 +136,16 @@ export const Estilos = StyleSheet.create(
             shadowOffset: {width: 1, height: 10},
             shadowRadius: 10,
         },
+
+        Error:{
+            color:"#F00",
+            padding:5,
+        },
+
+        IconoTexto:{
+            color: "#61135a",
+            fontSize: 20,
+            margin: 5,
+        }
     }
 )
