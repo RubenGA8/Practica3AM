@@ -47,6 +47,7 @@ export const Estilos = StyleSheet.create(
             justifyContent: "center",
             alignItems: "center",
             fontWeight: "black",
+            zIndex:3,
         },
 
         ContenedorCajaDeTexto:{
@@ -54,8 +55,8 @@ export const Estilos = StyleSheet.create(
             alignItems: 'center',
             justifyContent: 'flex-end',
             width:'60%',
-            marginTop: 15,
-            marginBottom: 15,
+            marginTop: 10,
+            marginBottom: 10,
             fontFamily: "JoylineNotes",
         },
 
