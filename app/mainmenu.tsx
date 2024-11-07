@@ -15,6 +15,10 @@ export default function Index()
         router.navigate('/camera')
     }
 
+    function onButtonLogout(){
+        router.replace('/');
+    }
+
     return(
         <View style={Estilos.Principal}>
             <ImageBackground source={require('../assets/images/BackGroundMenuPrincipal.png')} resizeMode="cover" style={Estilos.ImagenFondo}>

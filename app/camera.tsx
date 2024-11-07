@@ -56,7 +56,7 @@ export default function Index() {
     const savePicture = async() => {
         const form = new FormData();
         if (capturedImage) {
-            await MediaLibrary.saveToLibraryAsync(capturedImage.uri);
+            //await MediaLibrary.saveToLibraryAsync(capturedImage.uri);
             form.append('token', 'code37');
             form.append('id', loginData.id);
 
@@ -81,7 +81,7 @@ export default function Index() {
                         router.replace('/mainmenu');
                     } else {
                         console.log('error al cambiar la foto de perfil');
-                        console.log(data.error);
+                        console.log(data);
                     }
                 })
                 .catch(err => { console.log(err) });
@@ -147,4 +147,4 @@ export default function Index() {
             }
             </ImageBackground>
         </View>
-    )
+    )}
