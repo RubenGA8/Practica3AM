@@ -64,9 +64,6 @@ export default function Index()
                 <Text style={Estilos.Titulos}>
                     Registrarse
                 </Text>
-            </View>
-
-            <View style={Estilos.Contenedor2}>
                 <View style={Estilos.ContenedorCajaDeTexto}>
                     <Icon name="key" style={Estilos.Icono}/>
                     <TextInput style={Estilos.CajasDeTexto} onChangeText={setIdValue} placeholder="  ID"></TextInput>
@@ -96,13 +93,15 @@ export default function Index()
                     <Icono name="email" style={Estilos.Icono}/>
                     <TextInput style={Estilos.CajasDeTexto} onChangeText={setMailValue} placeholder="  Email"></TextInput>
                 </View>
-            </View>
-
-            <View style={Estilos.Contenedor3v2}>
                 {failedRegister? (<Text style={Estilos.Error}>Error al registrar el usuario</Text>):undefined}
                 <Pressable style={Estilos.Botones} onPress={onButtonRegister}>
                     <Text style={Estilos.TextoBotones}>Registrar</Text>
                 </Pressable>
+            {/* </View>
+
+            <View style={Estilos.Contenedor2}> */}
+            {/* </View>
+            <View style={Estilos.Contenedor3v2}> */}
             </View>
             </ImageBackground>
         </View>
